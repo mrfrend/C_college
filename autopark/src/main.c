@@ -20,22 +20,20 @@ int main() {
 
 
     sortCars(&park1, 0);
-    printf("Парк 1 после сортировки по ID:\n");
     outputCars(stdout, &park1);
     outputCars(output, &park1);
 
     sortCars(&park2, 1);
-    printf("Парк 2 после сортировки по максимальной скорости:\n");
     outputCars(stdout, &park2);
     outputCars(output, &park2);
 
     int result = compareParks(&park1, &park2);
     if (result == 1) {
-        printf("Парк 1 больше парка 2 по количеству автомобилей.\n");
+        printf("Park 1 > park 2\n");
     } else if (result == -1) {
-        printf("Парк 2 больше парка 1 по количеству автомобилей.\n");
+        printf("Park 2 > park 1\n");
     } else {
-        printf("Парки равны по количеству автомобилей.\n");
+        printf("Equal\n");
     }
 
     free(park1.cars);

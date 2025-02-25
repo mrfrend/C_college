@@ -9,14 +9,14 @@ void initCarPark(CarPark* park, int capacity) {
     park->capacity = capacity;
 }
 
-void addCar(CarPark* park, const char* license_plate, const char* brand, float engine_volume, int max_speed, int seats) {
+void addCar(CarPark* park, const char* number, const char* brand, float engine_volume, int max_speed, int seats) {
     if (park->size >= park->capacity) {
-        printf("Парк переполнен, нельзя добавить больше автомобилей.\n");
+        printf("No capacity\n");
         return;
     }
     Car newCar;
     newCar.id = park->size + 1;
-    strncpy(newCar.license_plate, license_plate, LICENSE_SIZE - 1);
+    strncpy(newCar.number, number, NUMBER_SIZE - 1);
     strncpy(newCar.brand, brand, BRAND_SIZE - 1);
     newCar.engine_volume = engine_volume;
     newCar.max_speed = max_speed;
@@ -25,13 +25,13 @@ void addCar(CarPark* park, const char* license_plate, const char* brand, float e
     park->size++;
 }
 
-void sortCars(CarPark* park, int bySpeed) {
+void sortCars(CarPark* park, int flagSpeed) {
     int i, j;
     Car temp;
     for (i = 0; i < park->size - 1; i++) {
         for (j = 0; j < park->size - i - 1; j++) {
-            if ((!bySpeed && park->cars[j].id > park->cars[j + 1].id) ||
-                (bySpeed && park->cars[j].max_speed > park->cars[j + 1].max_speed)) {
+            if ((!flagSpeed && park->cars[j].id > park->cars[j + 1].id) ||
+                (flagSpeed && park->cars[j].max_speed > park->cars[j + 1].max_speed)) {
                 temp = park->cars[j];
                 park->cars[j] = park->cars[j + 1];
                 park->cars[j + 1] = temp;
@@ -42,8 +42,8 @@ void sortCars(CarPark* park, int bySpeed) {
 
 void outputCars(FILE * file, CarPark* park) {
     for (int i = 0; i < park->size; i++) {
-        fprintf(file, "ID: %d, Гос.номер: %s, Марка: %s, Объем двигателя: %.1f, Макс. скорость: %d, Мест: %d\n",
-               park->cars[i].id, park->cars[i].license_plate, park->cars[i].brand,
+        fprintf(file, "ID: %d, Number: %s, Mark: %s, engine_volume: %.1f, Max Speed: %d, Capacity: %d\n",
+               park->cars[i].id, park->cars[i].number, park->cars[i].brand,
                park->cars[i].engine_volume, park->cars[i].max_speed, park->cars[i].seats);
     }
 }
